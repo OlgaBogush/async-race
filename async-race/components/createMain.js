@@ -1,5 +1,5 @@
 import createCars from "./createCars.js"
-import getCars from "../utils/getCars.js"
+import { getCars } from "../utils/async.js"
 
 const cars = await getCars()
 
@@ -31,7 +31,6 @@ export default function createMain() {
   formCreate.append(inputColorCreate)
   formCreate.append(createButton)
 
-
   // for form update
   const formUpdate = document.createElement("form")
   formUpdate.classList.add("update-form")
@@ -50,7 +49,6 @@ export default function createMain() {
   formUpdate.append(inputTextUpdate)
   formUpdate.append(inputColorUpdate)
   formUpdate.append(updateButton)
-
 
   // controls buttons
   const controlsButtons = document.createElement("div")
@@ -88,12 +86,11 @@ export default function createMain() {
 
   const totalCars = document.createElement("span")
   totalCars.classList.add("total-cars")
-  totalCars.innerText = "20"
+  totalCars.innerText = `${cars.length}`
 
   textPages.append(counterPages)
   textCars.append(totalCars)
   totalContainer.append(textPages, textCars)
-
 
   controls.append(formCreate)
   controls.append(formUpdate)
@@ -102,5 +99,10 @@ export default function createMain() {
   main.append(container)
   document.body.append(main)
 
-  createCars(cars)
+  const wrapper = document.createElement("div")
+  wrapper.classList.add("wrapper")
+
+  const carsWrapper = createCars(cars)
+  wrapper.append(carsWrapper)
+  container.append(wrapper)
 }

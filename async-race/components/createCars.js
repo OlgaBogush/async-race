@@ -1,6 +1,5 @@
 export default function createCars(array) {
-  const wrapper = document.createElement("div")
-  wrapper.classList.add("wrapper")
+  const fragment = document.createDocumentFragment()
 
   array.forEach(({ name, color, id }) => {
     const carItem = document.createElement("div")
@@ -39,20 +38,28 @@ export default function createCars(array) {
     carButtons.classList.add("car-buttons")
 
     const smallButtonRace = document.createElement("button")
+    smallButtonRace.classList.add("small-button")
     smallButtonRace.classList.add("small-button-race")
     smallButtonRace.textContent = "A"
+    smallButtonRace.id = `small-button-race-${id}`
 
     const smallButtonStop = document.createElement("button")
+    smallButtonStop.classList.add("small-button")
     smallButtonStop.classList.add("small-button-stop")
     smallButtonStop.textContent = "B"
+    smallButtonStop.id = `small-button-stop-${id}`
 
     const smallButtonSelect = document.createElement("button")
+    smallButtonSelect.classList.add("small-button")
     smallButtonSelect.classList.add("small-button-select")
     smallButtonSelect.textContent = "Select"
+    smallButtonSelect.id = `small-button-select-${id}`
 
     const smallButtonRemove = document.createElement("button")
+    smallButtonRemove.classList.add("small-button")
     smallButtonRemove.classList.add("small-button-remove")
     smallButtonRemove.textContent = "Remove"
+    smallButtonRemove.id = `small-button-remove-${id}`
 
     car.innerHTML = svgCar
     carContainer.append(car)
@@ -64,10 +71,8 @@ export default function createCars(array) {
     carItem.append(carContainer)
     carItem.append(carButtons)
 
-    wrapper.append(carItem)
+    fragment.append(carItem)
   })
-
-  const mainElement = document.querySelector("main")
-  const container = mainElement.querySelector(".container")
-  container.append(wrapper)
+  
+  return fragment
 }
