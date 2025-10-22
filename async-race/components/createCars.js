@@ -16,6 +16,13 @@ export default function createCars(array) {
     car.classList.add("car")
     car.id = id
 
+    const fire = document.createElement("div")
+    fire.classList.add("fire")
+    fire.id = `fire-${id}`
+
+    const flag = document.createElement("div")
+    flag.classList.add("flag")
+
     const svgCar = `
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
     viewBox="0 0 256 256" xml:space="preserve">
@@ -62,7 +69,8 @@ export default function createCars(array) {
     smallButtonRemove.id = `small-button-remove-${id}`
 
     car.innerHTML = svgCar
-    carContainer.append(car)
+    car.append(fire)
+    carContainer.append(car, flag)
     carButtons.append(smallButtonRace)
     carButtons.append(smallButtonStop)
     carButtons.append(smallButtonSelect)
