@@ -34,20 +34,19 @@ export default function modifyCar() {
       }
       // start
       if (e.target.classList.contains("small-button-race")) {
-        const { velocity, distance } = await startEngine(carId)
-        const time = (distance / velocity / 1000).toFixed(2)
+        const { id, res } = await startEngine(carId)
+        const time = (res.distance / res.velocity / 1000).toFixed(2)
         const carElement = document.getElementById(carId)
         carElement.style.animation = "move"
         carElement.style.animationDuration = `${time}s`
         carElement.style.animationTimingFunction = "linear"
         carElement.style.animationFillMode = "forwards"
-  
-        const isSuccees = await driveEngine(carId)
 
-        if (!isSuccees) {
-          carElement.style.animationPlayState = "paused"
-          fire.style.display = "block"
-        }
+        await driveEngine(carId)
+          .then((data) => data)
+          .catch((err) => {
+            console.log(err)
+          })
       }
       // stopped
       if (e.target.classList.contains("small-button-stop")) {

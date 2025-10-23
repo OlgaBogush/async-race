@@ -1,3 +1,5 @@
+import stopAnimation from "../utils/helpers/stopAnimation.js"
+
 const BASE_URL = "http://127.0.0.1:3000"
 
 export async function getCars() {
@@ -81,45 +83,26 @@ export async function startEngine(id) {
 }
 
 export async function driveEngine(id) {
-  const response = await fetch(`${BASE_URL}/engine?id=${id}&status=drive`, {
-    method: "PATCH",
-  })
-  if (response.status == 400) {
-    console.log("BAD REQUEST")
-    return false
-  } else if (response.status == 404) {
-    console.log("NOT FOUND")
-    return false
-  } else if (response.status == 429) {
-    console.log("TOO MANY REQUESTS")
-    return false
-  } else if (response.status == 500) {
-    console.log("INTERNAL SERVER ERROR")
-    return false
-  } else if (response.status == 200) {
-    const res = await response.json()
-    console.log("id:", id, res)
-    return { id, res }
-  }
-}
-
-export async function driveEngineForRace(id) {
   try {
     const response = await fetch(`${BASE_URL}/engine?id=${id}&status=drive`, {
       method: "PATCH",
     })
     if (response.status == 400) {
       console.log("BAD REQUEST")
-      return Promise.reject("BAD REQUEST")
+      stopAnimation(id)
+      return Promise.reject("from reject bad request")
     } else if (response.status == 404) {
       console.log("NOT FOUND")
-      return Promise.reject("NOT FOUND")
+      stopAnimation(id)
+      return Promise.reject("from reject not found")
     } else if (response.status == 429) {
       console.log("TOO MANY REQUESTS")
-      return Promise.reject("TOO MANY REQUESTS")
+      stopAnimation(id)
+      return Promise.reject("from reject too many requests")
     } else if (response.status == 500) {
       console.log("INTERNAL SERVER ERROR")
-      return Promise.reject("INTERNAL SERVER ERROR")
+      stopAnimation(id)
+      return Promise.reject("from reject internal server error")
     } else if (response.status == 200) {
       const res = await response.json()
       console.log("id:", id, res)

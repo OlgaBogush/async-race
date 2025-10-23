@@ -15,6 +15,7 @@ export default function createCars(array) {
     const car = document.createElement("div")
     car.classList.add("car")
     car.id = id
+    car.dataset.name = name
 
     const fire = document.createElement("div")
     fire.classList.add("fire")
