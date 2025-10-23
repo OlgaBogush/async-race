@@ -41,10 +41,10 @@ export default function modifyCar() {
         carElement.style.animationDuration = `${time}s`
         carElement.style.animationTimingFunction = "linear"
         carElement.style.animationFillMode = "forwards"
-
+  
         const isSuccees = await driveEngine(carId)
-    
-        if(!isSuccees) {
+
+        if (!isSuccees) {
           carElement.style.animationPlayState = "paused"
           fire.style.display = "block"
         }
