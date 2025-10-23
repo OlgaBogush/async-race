@@ -17,7 +17,7 @@ export default async function race() {
       const time = (res.distance / res.velocity / 1000).toFixed(2)
       const carElement = document.getElementById(id)
       carElement.dataset.time = time
-      carElement.style.animation = "move"
+      carElement.style.animationName = "move"
       carElement.style.animationDuration = `${time}s`
       carElement.style.animationTimingFunction = "linear"
       carElement.style.animationFillMode = "forwards"
@@ -32,9 +32,26 @@ export default async function race() {
 
     if (first) {
       const carElementWin = document.getElementById(first.id)
+      const flagWin = carElementWin.nextElementSibling
+      flagWin.style.animationName = "shake"
+      flagWin.style.animationDuration = "0.5s"
+      flagWin.style.animationIterationCount = 1
+
       const name = carElementWin.getAttribute("data-name")
       const time = carElementWin.getAttribute("data-time")
-      console.log(`${name} wins by ${time} s!`);
+      const modal = document.querySelector(".modal")
+      const modalText = modal.querySelector(".modalText")
+      modalText.textContent = `${name} wins by ${time} s!`
+      modal.classList.add("show")
+      document.body.style.overflow = "hidden"
+      console.log("first", first);
+
+      // hide modal
+      modal.addEventListener("click", () => {
+        modal.classList.remove("show")
+        modalText.textContent = ""
+        document.body.style.overflow = ""
+      })
     }
   })
 
